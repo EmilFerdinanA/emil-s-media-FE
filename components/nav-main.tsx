@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { ChevronRight, Plus, type LucideIcon } from "lucide-react";
 
 import {
   Collapsible,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
@@ -18,6 +19,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { loginFacebook } from "@/service/auth";
 
 export function NavMain({
   items,
@@ -36,6 +38,11 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Channels</SidebarGroupLabel>
+      <div className="flex flex-col">
+        <SidebarGroupAction onClick={loginFacebook}>
+          <Plus />
+        </SidebarGroupAction>
+      </div>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
