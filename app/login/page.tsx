@@ -4,14 +4,19 @@ import { LoginForm } from "@/components/login-form";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LayoutBottomIcon } from "@hugeicons/core-free-icons";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { register } from "@/service/auth";
+import { login } from "@/service/auth";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const methods = useForm();
+  const router = useRouter();
 
   const onSubmit = (data: FieldValues) => {
-    register(data);
-    console.log(data);
+    const reponse = login(data);
+
+    if (reponse !== undefined) {
+      router.push("/");
+    }
   };
 
   return (
