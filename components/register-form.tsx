@@ -26,7 +26,7 @@ interface IProps {
   onSubmit: SubmitHandler<FieldValues>;
 }
 
-export function LoginForm({ className, onSubmit, ...props }: IProps) {
+export function RegisterForm({ className, onSubmit, ...props }: IProps) {
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useFormContext();
 
@@ -34,7 +34,7 @@ export function LoginForm({ className, onSubmit, ...props }: IProps) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardTitle className="text-xl">Register Welcome back</CardTitle>
           <CardDescription>
             Login with your Apple or Google account
           </CardDescription>
@@ -70,6 +70,10 @@ export function LoginForm({ className, onSubmit, ...props }: IProps) {
                 <Input {...register("email")} />
               </Field>
               <Field>
+                <FieldLabel htmlFor="name">Name</FieldLabel>
+                <Input {...register("name")} />
+              </Field>
+              <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <div className="cursor-pointer ml-auto text-xs underline-offset-4 hover:underline">
@@ -97,8 +101,7 @@ export function LoginForm({ className, onSubmit, ...props }: IProps) {
                   Login
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account?{" "}
-                  <Link href="/register">Sign up</Link>
+                  Don&apos;t have an account? <Link href="/login">Sign in</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

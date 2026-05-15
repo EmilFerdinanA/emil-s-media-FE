@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginForm } from "@/components/login-form";
+import { RegisterForm } from "@/components/register-form";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LayoutBottomIcon } from "@hugeicons/core-free-icons";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ export default function LoginPage() {
             </div>
             Acme Inc.
           </a>
-          <LoginForm onSubmit={onSubmit} />
+          <RegisterForm onSubmit={onSubmit} />
         </div>
       </div>
     </FormProvider>
