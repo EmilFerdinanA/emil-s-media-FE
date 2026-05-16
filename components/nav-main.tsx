@@ -19,7 +19,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { loginFacebook } from "@/service/auth";
+import { loginFacebook } from "@/service/facebook";
 
 export function NavMain({
   items,

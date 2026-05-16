@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const httpClient = axios.create({
   baseURL: "/api/v.1/",
+  withCredentials: true,
 });
 
 // Add a request interceptor
