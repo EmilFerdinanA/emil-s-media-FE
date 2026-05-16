@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -13,8 +15,15 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getPages } from "@/service/facebook";
+import { useEffect } from "react";
 
 export default function Page() {
+  useEffect(() => {
+    getPages().then((pages) => {
+      console.log(pages);
+    });
+  });
   return (
     <SidebarProvider>
       <AppSidebar />
