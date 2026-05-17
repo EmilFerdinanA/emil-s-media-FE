@@ -1,5 +1,3 @@
-"use client";
-
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -16,17 +14,15 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { getPages } from "@/service/facebook";
-import { useEffect } from "react";
+import { cookies } from "next/headers";
 
-export default function Page() {
-  useEffect(() => {
-    getPages().then((pages) => {
-      console.log(pages);
-    });
-  });
+export default async function Page() {
+  const cookieHeader = (await cookies()).toString();
+  const pages = await getPages(cookieHeader);
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar pages={pages.data} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">
