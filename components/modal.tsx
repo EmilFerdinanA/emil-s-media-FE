@@ -7,11 +7,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Settings, X } from "lucide-react";
 import { ButtonGroupDropdown } from "./button-group-dropdown";
+import { StyledDropzone } from "./file-upload";
+import { Textarea } from "./ui/textarea";
 
 interface IProps {
   isOpen: boolean;
@@ -39,16 +38,10 @@ export function Modal({ isOpen, onOpenChange }: IProps) {
             </div>
           </DialogHeader>
 
-          <FieldGroup>
-            <Field>
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-            </Field>
-            <Field>
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
-            </Field>
-          </FieldGroup>
+          <Textarea className="border-none" />
+
+          <StyledDropzone />
+
           <DialogFooter>
             <ButtonGroupDropdown />
           </DialogFooter>
