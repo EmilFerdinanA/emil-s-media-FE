@@ -2,8 +2,9 @@
 
 import { ImagePlus, X } from "lucide-react";
 import Image from "next/image";
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { useController } from "react-hook-form";
 
 interface UploadedFile {
   id: string;
@@ -11,24 +12,33 @@ interface UploadedFile {
   preview: string;
 }
 
-export function StyledDropzone() {
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+export function StyledDropzone({ name }: { name: string }) {
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name });
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const newFiles = acceptedFiles.map((file) => ({
-      id: crypto.randomUUID(),
-      file,
-      preview: URL.createObjectURL(file),
-    }));
-    setUploadedFiles((prev) => [...prev, ...newFiles]);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const newFiles = acceptedFiles.map((file) => ({
+        id: crypto.randomUUID(),
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+      field.onChange([...field.value, ...newFiles]);
+    },
+    [field],
+  );
 
   const removeFile = (id: string) => {
-    setUploadedFiles((prev) => {
-      const file = prev.find((f) => f.id === id);
-      if (file) URL.revokeObjectURL(file.preview);
-      return prev.filter((f) => f.id !== id);
+    const updated = field.value.filter((f: UploadedFile) => {
+      if (f.id === id) {
+        URL.revokeObjectURL(f.preview);
+        return false;
+      }
+      return true;
     });
+    field.onChange(updated);
   };
 
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
@@ -46,7 +56,7 @@ export function StyledDropzone() {
 
   return (
     <div className="flex flex-wrap gap-1 p-2">
-      {uploadedFiles.map((f) => (
+      {field.value.map((f: UploadedFile) => (
         <div
           key={f.id}
           className="relative w-30 h-30 rounded-md overflow-hidden group"

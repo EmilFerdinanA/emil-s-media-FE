@@ -11,6 +11,7 @@ import { Settings, X } from "lucide-react";
 import { ButtonGroupDropdown } from "./button-group-dropdown";
 import { StyledDropzone } from "./file-upload";
 import { Textarea } from "./ui/textarea";
+import { useFormContext } from "react-hook-form";
 
 interface IProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface IProps {
 }
 
 export function Modal({ isOpen, onOpenChange }: IProps) {
+  const { register } = useFormContext();
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <form>
@@ -38,9 +40,9 @@ export function Modal({ isOpen, onOpenChange }: IProps) {
             </div>
           </DialogHeader>
 
-          <Textarea className="border-none" />
+          <Textarea className="border-none" {...register("caption")} />
 
-          <StyledDropzone />
+          <StyledDropzone name="files" />
 
           <DialogFooter>
             <ButtonGroupDropdown />

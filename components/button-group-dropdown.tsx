@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  AlertTriangleIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  CopyIcon,
-  ShareIcon,
-  TrashIcon,
-  UserRoundXIcon,
-  VolumeOffIcon,
-} from "lucide-react";
+import { ChevronDownIcon, ShareIcon, VolumeOffIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -20,8 +11,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useFormContext } from "react-hook-form";
 
 export function ButtonGroupDropdown() {
+  const { handleSubmit } = useFormContext();
+
+  const onSUbmit = (datas: any) => {
+    console.log(datas);
+  };
   return (
     <ButtonGroup>
       <DropdownMenu>
@@ -45,7 +42,9 @@ export function ButtonGroupDropdown() {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <Button variant="outline">Publish Now</Button>
+      <Button variant="outline" onClick={handleSubmit(onSUbmit)}>
+        Publish Now
+      </Button>
     </ButtonGroup>
   );
 }

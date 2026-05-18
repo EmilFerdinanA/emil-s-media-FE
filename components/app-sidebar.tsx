@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Modal } from "./modal";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 const data = {
   user: {
@@ -37,6 +38,13 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ pages, ...props }: AppSidebarProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const methods = useForm({
+    defaultValues: {
+      caption: "",
+      files: [],
+    },
+  });
 
   const datas = pages?.map((e: any) => ({
     title: e.name,
@@ -94,7 +102,9 @@ export function AppSidebar({ pages, ...props }: AppSidebarProps) {
           </SidebarMenu>
         </SidebarHeader>
         <SidebarContent>
-          <Modal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+          <FormProvider {...methods}>
+            <Modal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+          </FormProvider>
           <NavMain items={datas} />
         </SidebarContent>
         <SidebarFooter>
