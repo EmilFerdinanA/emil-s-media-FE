@@ -103,7 +103,11 @@ export function AppSidebar({ pages, ...props }: AppSidebarProps) {
         </SidebarHeader>
         <SidebarContent>
           <FormProvider {...methods}>
-            <Modal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+            <Modal
+              pages={pages}
+              isOpen={isModalOpen}
+              onOpenChange={setIsModalOpen}
+            />
           </FormProvider>
           <NavMain items={datas} />
         </SidebarContent>
