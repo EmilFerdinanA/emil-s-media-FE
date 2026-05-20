@@ -34,7 +34,7 @@ export function Modal({ isOpen, onOpenChange, pages }: IProps) {
   const selectedPages: string[] = selectedPagesField.value ?? [];
 
   const onClickSelectAll = () => {
-    selectedPagesField.onChange(pages.map((page: any) => page.id));
+    selectedPagesField.onChange(pages.map((page: any) => page.pageId));
   };
 
   const onClickUnselectAll = () => {
@@ -52,7 +52,10 @@ export function Modal({ isOpen, onOpenChange, pages }: IProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <form>
-        <DialogContent showCloseButton={false} className="sm:max-w-sm">
+        <DialogContent
+          showCloseButton={false}
+          className="min-h-[90vh] sm:max-w-[56vw] p-8"
+        >
           <DialogHeader>
             <div className="flex items-center justify-between">
               <DialogTitle>Create Post</DialogTitle>
@@ -69,11 +72,11 @@ export function Modal({ isOpen, onOpenChange, pages }: IProps) {
             </div>
           </DialogHeader>
 
-          <div className="flex gap-1">
+          <div className="flex h-7.75">
             <Button
               type="button"
               variant="outline"
-              size="sm"
+              size="lg"
               onClick={
                 selectedPages.length === pages.length
                   ? onClickUnselectAll
@@ -84,22 +87,24 @@ export function Modal({ isOpen, onOpenChange, pages }: IProps) {
                 ? "Unselect All"
                 : "Select All"}
             </Button>
+          </div>
 
+          <div className="flex items-center h-12.5 gap-1">
             {pages.map((page: any) => (
               <div
-                key={page.id}
-                onClick={() => onTogglePage(page.id)} // 👈 bonus: bisa toggle per page
+                key={page.pageId}
+                onClick={() => onTogglePage(page.pageId)}
                 className={cn(
-                  "flex items-center gap-2 cursor-pointer rounded p-0.5",
-                  selectedPages.includes(page.id) &&
+                  "flex items-center gap-2 cursor-pointer rounded",
+                  selectedPages.includes(page.pageId) &&
                     "border-2 border-yellow-500",
                 )}
               >
                 <Image
                   src={page.picture}
                   alt={page.name}
-                  width={20}
-                  height={20}
+                  width={50}
+                  height={50}
                 />
               </div>
             ))}
