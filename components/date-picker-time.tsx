@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/popover";
 import { useController } from "react-hook-form";
 
+const WIB_OFFSET = 7 * 60 * 60;
+
 export function DatePickerTime({ name }: { name: string }) {
   const [open, setOpen] = React.useState(false);
   const { field } = useController({ name });
@@ -29,11 +31,13 @@ export function DatePickerTime({ name }: { name: string }) {
     const t = newTime ?? time;
     if (!d) return;
 
-    const [hours, minutes] = (t ?? "00:00").split(":").map(Number); // 👈 hapus seconds
-
+    const [hours, minutes] = (t ?? "00:00").split(":").map(Number);
     const combined = set(d, { hours, minutes, seconds: 0 });
 
-    field.onChange(getUnixTime(combined));
+    const unixWIB = getUnixTime(combined);
+    const unixUTC = unixWIB - WIB_OFFSET;
+
+    field.onChange(unixUTC);
   };
 
   return (
