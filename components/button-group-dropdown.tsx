@@ -18,13 +18,15 @@ import { DatePickerTime } from "./date-picker-time";
 
 export function ButtonGroupDropdown() {
   const [activeItem, setActiveItem] = useState("now");
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit, resetField } = useFormContext();
 
   const onSUbmit = (datas: any) => {
     const formData = new FormData();
     formData.append("caption", datas.caption);
-    formData.append("scheduledAt", datas.scheduledAt);
     formData.append("pages", datas.selectedPages);
+    if (datas.scheduledAt !== undefined) {
+      formData.append("scheduledAt", datas.scheduledAt);
+    }
     datas.files.forEach((f: any) => {
       formData.append("files", f.file);
     });
@@ -45,7 +47,12 @@ export function ButtonGroupDropdown() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-44">
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => setActiveItem("now")}>
+              <DropdownMenuItem
+                onClick={() => {
+                  resetField("scheduledAt");
+                  setActiveItem("now");
+                }}
+              >
                 <VolumeOffIcon />
                 Now
               </DropdownMenuItem>
